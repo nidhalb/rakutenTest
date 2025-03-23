@@ -1,12 +1,12 @@
 export default {
     preset: "ts-jest",
     testEnvironment: "jsdom",
-    setupFilesAfterEnv: ["@testing-library/jest-dom"], // Add custom matchers
+    setupFilesAfterEnv: ["@testing-library/jest-dom"], 
     moduleNameMapper: {
-      "^@/(.*)$": "<rootDir>/src/$1", // Map aliases (if you use them in Vite)
+      "^@/(.*)$": "<rootDir>/src/$1", 
     },
     transform: {
-      "^.+\\.tsx?$": "ts-jest", // Transform TypeScript files
+      "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.test.json" }],
     },
-    testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"], // Match test files
+    testMatch: ["**/?(*.)+(spec|test).[jt]s?(x)"],
   };

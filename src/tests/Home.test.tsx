@@ -1,4 +1,3 @@
-
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom"; // Import to extend Jest matchers
 import Home from "../pages/Home";
@@ -14,7 +13,7 @@ describe("Home Component", () => {
   it("renders the title", () => {
     render(<Home />);
     const titleElement = screen.getByText("Welcome to Our Product List!");
-    expect(titleElement).toBeInTheDocument(); // Now this works!
+    expect(titleElement).toBeInTheDocument();
   });
 
   // Test 2: Renders valid products
@@ -28,19 +27,20 @@ describe("Home Component", () => {
           product.image && product.title && product.newPrice && product.brand && product.href
       )
       .forEach((product) => {
-        const productElement = screen.getByText(product.title);
-        expect(productElement).toBeInTheDocument(); // Now this works!
+        const productElements = screen.getAllByText(product.title);
+        expect(productElements.length).toBeGreaterThan(0); // Ensure at least one element is found
       });
   });
 
   // Test 3: Displays a message when no valid products are available
   it("displays a message when no valid products are available", () => {
-    // Mock an empty products array
+    // Mock the products.json file to return an empty array
     jest.mock("../data/products.json", () => []);
+    console.log()
 
     render(<Home />);
     const messageElement = screen.getByText("No valid products to display.");
-    expect(messageElement).toBeInTheDocument(); // Now this works!
+    expect(messageElement).toBeInTheDocument();
   });
 
   // Test 4: Does not render invalid products
@@ -55,7 +55,7 @@ describe("Home Component", () => {
       )
       .forEach((product) => {
         const productElement = screen.queryByText(product.title);
-        expect(productElement).not.toBeInTheDocument(); // Now this works!
+        expect(productElement).not.toBeInTheDocument();
       });
   });
 });
